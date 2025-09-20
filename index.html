@@ -1,100 +1,170 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Postuler — Supermarché Paristanbul</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root{
-            --brand-blue:#1f4aa9;
-            --brand-blue-2:#2a64d4;
-            --brand-red:#e53935;
-            --green:#2d9b47;
-            --dark:#222;
-            --light:#f6f7f9;
-            --error:#c1121f;
+        :root {
+            --brand-blue: #0d1b2a;
+            --brand-blue-2: #1b263b;
+            --brand-red: #a4161a;
+            --dark: #0a0a0a;
+            --light: #e5e5e5;
             --radius:16px;
             --gap:16px;
             --pad:16px;
             --input-h:48px;
         }
-        html{font-size:16px;-webkit-text-size-adjust:100%}
-        *{box-sizing:border-box}
-        body{
+
+        /* --- ANIMATIONS KEYFRAMES --- */
+        @keyframes fadeZoomIn {
+            0% {opacity:0; transform:scale(.92) translateY(20px);}
+            60% {opacity:.8; transform:scale(1.02) translateY(0);}
+            100% {opacity:1; transform:scale(1);}
+        }
+        @keyframes subtleGlow {
+            0%,100% {box-shadow:0 0 25px rgba(164,22,26,.25);}
+            50% {box-shadow:0 0 40px rgba(164,22,26,.35);}
+        }
+        @keyframes pulseFocus {
+            0% {box-shadow:0 0 0 0 rgba(164,22,26,.6);}
+            70% {box-shadow:0 0 10px 6px rgba(164,22,26,.0);}
+            100% {box-shadow:0 0 0 0 rgba(164,22,26,.0);}
+        }
+
+        html { font-size:16px; -webkit-text-size-adjust:100% }
+        * { box-sizing:border-box; }
+        body {
             font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-            color:#222;margin:0;min-height:100vh;
+            margin:0;
+            min-height:100vh;
             background:
-                    radial-gradient(1200px 600px at -10% -10%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 60%),
-                    radial-gradient(900px 450px at 110% 0%, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 60%),
-                    linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-2) 45%, var(--brand-red) 100%);
+                    radial-gradient(1200px 600px at -10% -10%, rgba(164,22,26,.15) 0%, transparent 60%),
+                    radial-gradient(900px 450px at 110% 0%, rgba(13,27,42,.4) 0%, transparent 60%),
+                    linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-blue-2) 40%, var(--brand-red) 100%);
             background-attachment: fixed;
+            color: var(--light);
         }
-        .container{
-            max-width:960px;margin:24px auto;padding:24px;
-            background:rgba(255,255,255,.92);
-            border:1px solid #e5e7eb;border-radius:20px;
-            box-shadow:0 10px 30px rgba(31,74,169,.15);
+        .container {
+            max-width:960px;
+            margin:24px auto;
+            padding:32px;
+            background:rgba(0,0,0,0.65);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:20px;
+            backdrop-filter: blur(6px);
+            animation: fadeZoomIn 1s ease forwards, subtleGlow 6s ease-in-out infinite;
         }
-        header{display:flex;gap:16px;align-items:center;padding:8px 0 16px}
-        header img{height:56px;flex:0 0 auto}
-        h1{margin:0;font-size:28px;line-height:1.2}
-        .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#eaf0fb;color:#0b3a8a;font-weight:600;font-size:12px}
-        .card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);padding:24px;box-shadow:0 4px 18px rgba(0,0,0,.06)}
-        .grid{display:grid;grid-template-columns:1fr;gap:var(--gap)}
-        .grid-1{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+        header {
+            display:flex; gap:16px; align-items:center; padding:8px 0 24px;
+        }
+        header img {
+            height:60px; flex:0 0 auto; border-radius:12px;
+            box-shadow:0 0 15px rgba(0,0,0,.7);
+            transition:transform .6s ease;
+        }
+        header img:hover { transform:rotate(-3deg) scale(1.05); }
+        h1 { margin:0; font-size:30px; line-height:1.2; color:#fff; }
+        header div > div { color:#ccc; }
+
+        .card {
+            background:rgba(20,20,20,0.75);
+            border:1px solid rgba(255,255,255,0.08);
+            border-radius:var(--radius);
+            padding:24px;
+            box-shadow:0 4px 18px rgba(0,0,0,.4);
+            animation: fadeZoomIn 1.2s ease;
+        }
+        .grid { display:grid; grid-template-columns:1fr; gap:var(--gap);}
+        .grid-1 { display:grid; grid-template-columns:1fr; gap:var(--gap);}
         @media (min-width:640px){
             .grid{grid-template-columns:1fr 1fr}
-            .container{padding:32px}
             header{padding:24px 0}
         }
-        label{font-weight:600;margin-bottom:6px;display:block}
-        input[type=text],input[type=date],input[type=email],input[type=tel],textarea,select{
-            width:100%;padding:12px 14px;
-            border:1px solid #d1d5db;border-radius:12px;background:#fff;font-size:15px;
-            line-height:1.2;min-height:var(--input-h);
+
+        label {
+            font-weight:600;
+            margin-bottom:6px;
+            display:block;
+            color:#eee;
         }
-        input, select, textarea { font-size:16px; }
-        textarea{min-height:120px;resize:vertical}
-        .hint{font-size:12px;color:#666;margin-top:4px}
-        .inline{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-        .hidden{display:none}
-        .required::after{content:" *";color:var(--error);font-weight:700}
-        .actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:16px;flex-wrap:wrap}
-        .btn{
-            background:var(--brand-blue);border:none;color:#fff;font-weight:700;
-            padding:12px 18px;border-radius:12px;cursor:pointer;min-height:48px;
-            touch-action: manipulation;-webkit-tap-highlight-color: transparent;
-        }
-        .btn:hover{filter:brightness(.95)}
-        .btn:active{transform:translateY(1px)}
-        :focus-visible{
-            outline:2px solid transparent;
-            box-shadow:0 0 0 3px rgba(42,100,212,.35), 0 0 0 1px var(--brand-blue-2) inset;
+        input[type=text],input[type=date],input[type=email],input[type=tel],textarea,select {
+            width:100%;
+            padding:12px 14px;
+            border:1px solid rgba(255,255,255,0.2);
             border-radius:12px;
+            background:rgba(255,255,255,0.05);
+            color:#fff;
+            font-size:15px;
+            line-height:1.2;
+            min-height:var(--input-h);
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
         }
-        .footer-note{font-size:12px;color:#6b7280;margin-top:8px}
-        .error{color:var(--error);font-size:14px;margin-top:8px}
-        .container{padding-left:calc(24px + env(safe-area-inset-left));padding-right:calc(24px + env(safe-area-inset-right));}
+        input:focus, select:focus, textarea:focus {
+            outline:none;
+            border-color: var(--brand-red);
+            background:rgba(255,255,255,0.12);
+            animation: pulseFocus 1.2s ease-out;
+            transform: scale(1.02);
+        }
+        textarea { min-height:120px; resize:vertical; }
+        .hint { font-size:12px; color:#aaa; margin-top:4px }
+        .inline { display:flex; gap:16px; align-items:center; flex-wrap:wrap; color:#ccc;}
+        .hidden { display:none; }
+        .required::after { content:" *"; color:var(--brand-red); font-weight:700; }
+        .actions {
+            display:flex; justify-content:space-between; align-items:center;
+            margin-top:16px; gap:16px; flex-wrap:wrap;
+        }
+        .btn {
+            background: var(--brand-red);
+            border:none;
+            color:#fff;
+            font-weight:700;
+            padding:12px 22px;
+            border-radius:12px;
+            cursor:pointer;
+            min-height:48px;
+            position:relative;
+            overflow:hidden;
+            transition:transform 0.25s ease;
+        }
+        .btn::before {
+            content:"";
+            position:absolute;
+            top:-50%;
+            left:-50%;
+            width:200%;
+            height:200%;
+            background: radial-gradient(circle at center,
+            rgba(255,255,255,.2) 0%, transparent 70%);
+            transform:scale(0);
+            transition:transform 0.5s ease;
+        }
+        .btn:hover::before { transform:scale(1); }
+        .btn:hover { transform:translateY(-2px) scale(1.03); }
+        .btn:active { transform:scale(0.97); }
+        .footer-note { font-size:12px; color:#aaa; margin-top:8px }
+        .error { color:var(--brand-red); font-size:14px; margin-top:8px }
+
         body{padding-bottom:env(safe-area-inset-bottom)}
         @media (max-width:639.98px){
             header{flex-direction:column;align-items:flex-start}
             header img{height:48px}
-            .container{margin:16px auto;padding:16px}
+            .container{margin:16px auto;padding:20px}
             body{background-attachment: scroll;}
-        }
-        @media (prefers-reduced-motion: reduce){
-            .btn:active{transform:none}
         }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <img src="https://play-lh.googleusercontent.com/4-hTf32960CWp7N_cBSNN7UnH3UNHMzgye3wGzXqSp69-iAc7-88jwc1jPlkeqDktLE" alt="Logo" style="border-radius:10px"/>
+        <img src="https://play-lh.googleusercontent.com/4-hTf32960CWp7N_cBSNN7UnH3UNHMzgye3wGzXqSp69-iAc7-88jwc1jPlkeqDktLE" alt="Logo"/>
         <div>
             <h1>Recrutement — Supermarché Paristanbul</h1>
             <div>Merci de remplir ce formulaire pour postuler.</div>
@@ -102,10 +172,9 @@
     </header>
 
     <form class="card"
-          action="https://formsubmit.co/baojonathan95@gmail.com"
+          action="https://formsubmit.co/aac791e09d354dacc64b91b94bba2646"
           method="POST"
           enctype="multipart/form-data">
-
 
         <div class="grid">
             <div>
